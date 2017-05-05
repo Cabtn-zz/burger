@@ -7,13 +7,16 @@
     <br>
     <textarea id="burger" name="burger_name" rows="8" cols="40">{{this.burger_name}}</textarea>
   </div>
+  <button type="submit">Update Menu</button>
 
 {{#each burger}}
-<h3>
-{{this.burger_name}}
+{{#if devoured}}
+<h2>These were yummy!</h2>
+<h3>{{this.burger_name}}</h3>
+{{else}}
+<h3>{{this.burger_name}}</h3>
 <button type="devour">Devour It</button>
-</h3>
+{{/if}}
 {{/each}}
 
-  <button type="submit">Update Menu</button>
 </form>
