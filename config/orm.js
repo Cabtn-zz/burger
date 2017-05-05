@@ -1,17 +1,18 @@
 var connection = require("./connection");
-
+//make all orms more generic
 var orm = {
-  selectAll: function (tableInput) {
-    var queryString = "SELECT * FROM ??";
-    connection.query(queryString, [tableInput], function(err, result) {
+  selectAll: function (callback) {
+    var queryString = "SELECT * FROM burgers";
+    connection.query(queryString, function(err, result) {
       if (err) {
         throw err;
       }
+      callback(result);
       console.log(result);
     });
   },
-  insertOne: function(tableInput, name, bool) {
-    var queryString = "INSERT INTO ?? (burger_name, devoured)";
+  insertOne: function(name, bool) {
+    var queryString = "INSERT INTO burgers (burger_name, devoured)";
     queryString = queryString +  " VALUES ('?', ?)"
     console.log(queryString);
 
@@ -19,17 +20,12 @@ var orm = {
       console.log(result);
     });
   },
-  // updateOne: function(whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol) {
-  //   var queryString = "SELECT ?? FROM ?? AS tOne";
-  //   queryString = queryString + " LEFT JOIN ?? AS tTwo";
-  //   queryString = queryString + " ON tOne.?? = tTwo.??";
-  //
-  //   console.log(queryString);
-  //
-  //   connection.query(queryString, [whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol], function(err, result) {
-  //     console.log(result);
-  //   });
-  // }
+  updateOne: function(results) {
+    var queryString = "UPDATE burgers SET eaten = ? WHERE burger_name = ?"
+    connection.query(queryString, results, (err, result) => {
+      console.log(result);
+    });
+  }
 };
 
-module.exports = orm;
+module.exports = {orm: orm};

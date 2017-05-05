@@ -1,0 +1,19 @@
+<h1>Update the menu with a Burger</h1>
+
+<form class="create-update-form" action="/{{this.id}}?_method=PUT" method="POST">
+
+  <div class="form-group">
+    <label for="burger">Your Order:</label>
+    <br>
+    <textarea id="burger" name="burger_name" rows="8" cols="40">{{this.burger_name}}</textarea>
+  </div>
+
+{{#each burger}}
+<h3>
+{{this.burger_name}}
+<button type="devour">Devour It</button>
+</h3>
+{{/each}}
+
+  <button type="submit">Update Menu</button>
+</form>
