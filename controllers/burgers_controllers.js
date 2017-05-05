@@ -31,7 +31,6 @@ const apiRoutes = (app) => {
 //this is when a user clicks the devour it button
 const updateRoutes = (app) => {
   console.log("update Routes");
-  //htmlRoutes(app);
   app.post("/update/method=PUT", function(req, res){
     burger.eatBurger((data) => {
       res.render("index", {burger: data});

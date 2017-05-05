@@ -1,6 +1,6 @@
 var orm = require("../config/orm.js")
 console.log('model');
-// Console log all the party_name's.
+//We are using a callback here as this is async and the data isn't ready if you use return
 const burger = {
   getBurgers: function (callback){
     orm.selectAll(res => {
