@@ -28,4 +28,4 @@ var orm = {
   }
 };
 
-module.exports = {orm: orm};
+module.exports = orm;
