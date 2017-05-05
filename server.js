@@ -4,7 +4,8 @@ var bodyParser = require('body-parser');
 var method = require('method-override');
 var path = require('path');
 var controller = require('./controllers/burgers_controllers.js');
-const htmlRoutes = require("./controllers/burgers_controllers.js")
+const routes = require("./controllers/burgers_controllers.js");
+const apiRoutes = require("./controllers/burgers_controllers.js");
 
 //variables to set up my server
 var app = express();
@@ -23,6 +24,6 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 app.listen(PORT, function(){
     console.log("We are live");
-    htmlRoutes(app);
-
+    routes.apiRoutes(app);
+    routes.updateRoutes(app);
 })
