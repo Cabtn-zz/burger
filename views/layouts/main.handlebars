@@ -1,6 +1,6 @@
 <h1>Update the menu with a Burger</h1>
 
-<form class="create-update-form" action="/method=PUT" method="POST">
+<form class="create-update-form" action="/" method="POST">
 
   <div class="form-group">
     <label for="burger">Your Order:</label>
@@ -15,7 +15,7 @@
 <h3>{{this.burger_name}}</h3>
 {{else}}
 <h3>{{this.burger_name}}</h3>
-<button type="devour" action="/update/method=PUT", method="POST">Devour It</button>
+<button type="devour" action="/", method="POST">Devour It</button>
 {{/if}}
 {{/each}}
 
@@ -33,3 +33,5 @@ label {
   font-weight: bold;
 }
 </style>
+<!-- update/method=PUT" -->
+<!-- method=PUT -->

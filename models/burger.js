@@ -7,13 +7,13 @@ const burger = {
       callback(res);
     })
   },
-  addBurger: function( name, callback){
-    orm.insertOne(name, res => {
+  addBurger: function(name, callback){
+    orm.insertOne(name, (res) => {
       callback(res);
     })
   },
   eatBurger: function(name, callback){
-    orm.updateOne(name, res => {
+    orm.updateOne(name, (res) => {
       callback(res);
     })
   }

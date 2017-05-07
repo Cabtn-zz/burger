@@ -24,7 +24,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 app.listen(PORT, function(){
     console.log("We are live");
-    routes.htmlRoutes(app);
-    //routes.apiRoutes(app);
-    //routes.updateRoutes(app);
+    routes.router(app);
+    routes.addRoute(app);
+    routes.updateRoutes(app);
 })

@@ -7,7 +7,7 @@ var hbs = require("express-handlebars");
 var app = express();
 
 //this is used to make the main page display
-const htmlRoutes = (app) => {
+const router = (app) => {
   app.engine("handlebars", hbs({ defaultLayout: "main" }));
   app.set("view engine", "handlebars");
 
@@ -18,29 +18,30 @@ const htmlRoutes = (app) => {
   });
 }
 //this is when a user wants to add a new burger
-const apiRoutes = (app) => {
+const addRoute = (app) => {
   console.log("Api routes");
-  htmlRoutes(app);
-  app.post("/method=PUT", function(req, res){
-    burger.addBurger((data) =>{
-      res.send(req.body.burger_name)
-      console.log("This put method actually works?")
+  router(app);
+  app.post("/", function(req, res){
+    burger.addBurger(res.send(req.body.burger_name), (data) => {
+      console.log("Burger added");
     })
+
+    res.redirect("/");
   })
 }
 //this is when a user clicks the devour it button
 const updateRoutes = (app) => {
   console.log("update Routes");
-  app.post("/update/method=PUT", function(req, res){
+  app.post("/", function(req, res){
     burger.eatBurger((data) => {
-      res.render("index", {burger: data});
+      res.render("main", {burger: data});
     })
   })
 }
 
 
 module.exports = {
-  htmlRoutes,
-  apiRoutes,
+  router,
+  addRoute,
   updateRoutes
 }
