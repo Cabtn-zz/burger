@@ -1,22 +1,26 @@
-var orm = require("../config/orm.js")
-console.log('model');
-//We are using a callback here as this is async and the data isn't ready if you use return
-const burger = {
-  getBurgers: function (callback){
-    orm.selectAll(res => {
-      callback(res);
-    })
-  },
-  addBurger: function(name, callback){
-    orm.insertOne(name, (res) => {
-      callback(res);
-    })
-  },
-  eatBurger: function(name, callback){
-    orm.updateOne(name, (res) => {
-      callback(res);
-    })
-  }
+const orm = require("../config/orm.js");
+
+const BurgerModel = {
+	//Select all of the data that will eventually be displayed in the left-side list (not-devoured)
+	selectAllBurgers(cb) {
+		orm.selectAll("burgers", (data) => {
+			cb(data);
+		});
+	},
+
+	//Insert a particular burger into the not-devoured section
+	insertBurger(burger, cb) {
+		orm.insertOne("burgers", "burger_name", burger, (data) => {
+			cb(data);
+		});
+	},
+
+	//Update a particular burger such that it is devoured
+	updateBurger(id, cb) {
+		orm.updateOne("burgers", "devoured", true, "id", id, (data) => {
+			cb(data);
+		});
+	}
 };
 
-module.exports = {burger: burger};
+module.exports = BurgerModel;

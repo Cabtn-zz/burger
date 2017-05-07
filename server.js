@@ -1,30 +1,34 @@
-var express = require('express');
-var exphbs = require("express-handlebars");
-var bodyParser = require('body-parser');
-var method = require('method-override');
-var path = require('path');
-var controller = require('./controllers/burgers_controllers.js');
-const routes = require("./controllers/burgers_controllers.js");
-const apiRoutes = require("./controllers/burgers_controllers.js");
+const express = require("express");
+const app = express();
+const methodOverride = require("method-override");
+const bodyParser = require('body-parser');
+const PORT = process.env.PORT || 3000;
 
-//variables to set up my server
-var app = express();
-var orm = require('./config/orm.js');
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static(process.cwd() + "/public"));
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
+// Override with POST having ?_method=DELETE
+app.use(methodOverride("_method"));
+
+//Use handlebars information for formatting
+const exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-var PORT = process.env.PORT || 3000;
+//Import connection from config file and connect to MySQL database.
+const connection = require("./config/connection.js");
 
-// Sets up the Express app to handle data parsing
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.text());
-app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+// Import router from controller file
+const ROUTER = require("./controllers/burgers_controllers.js");
+ROUTER.openRoute(app);
 
-app.listen(PORT, function(){
-    console.log("We are live");
-    routes.router(app);
-    routes.addRoute(app);
-    routes.updateRoutes(app);
-})
+//Listen on specified port
+app.listen(PORT, () => {
+  console.log("App listening on port: " + PORT);
+});

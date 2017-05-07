@@ -1,29 +1,44 @@
 var connection = require("./connection");
 //make all orms more generic
-var orm = {
-  //this shows all burgers that are not devoured
-  selectAll: function (callback) {
-    var queryString = "SELECT * FROM burgers WHERE DEVOURED = 0";
-    connection.query(queryString, function(err, result) {
+const orm = {
+  selectAll(tableInput, callback) {
+    let queryString = "SELECT * FROM ??";
+
+    connection.query(queryString, [tableInput], (err, result) => {
       if (err) {
-        throw err;
-      }
+        console.log("Error: " + err.stack);
+        return;
+      };
       callback(result);
-      console.log(result);
     });
   },
-  insertOne: function(name, callback) {
-    var queryString = "INSERT INTO burgers (burger_name, devoured) VALUES (?, 0)";
-    connection.query(queryString, [name], function(err, result) {
-      callback(result)
+
+  insertOne(tableInput, insertCol, insertColVal, callback) {
+    let queryString = "INSERT INTO ??(??) VALUES (?)";
+
+    connection.query(queryString, [tableInput, insertCol, insertColVal], (err, result) => {
+      if (err) {
+        console.log("Error: " + err.stack);
+        return;
+      };
+
+      callback(result);
     });
   },
-  updateOne: function(name, callback) {
-    var queryString = "UPDATE burgers SET devoured = 1 WHERE burger_name = ?"
-    connection.query(queryString, result, (err, result) => {
+
+  updateOne(tableInput, setCol, setVal, whereCol, whereVal, callback) {
+    let queryString = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
+
+    connection.query(queryString, [tableInput, setCol, setVal, whereCol, whereVal], (err, result) => {
+      if (err) {
+        console.log("Error: " + err.stack);
+        return;
+      };
+
       callback(result);
     });
   }
+
 };
 
 module.exports = orm;
