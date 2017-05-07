@@ -10,7 +10,7 @@
               <div id="inner-form-left">
                 <span id="single-burger-left"> {{this.id}}. {{this.burger_name}} </span>
                 <input type="hidden" name="id" value="{{this.id}}">
-                <button class="btn btn-default left-output-button" type="submit">DEVOUR!!!</button>
+                <button class="btn btn-default left-output-button" type="submit">Eat up!!!</button>
               </div>
             </form>
           {{/unless}}
@@ -21,7 +21,7 @@
       {{#each burgers}}
         {{#if this.devoured}}
           <div id="single-burger-right">
-            {{this.id}}. {{this.burger_name}} has been devoured!
+            {{this.id}}. {{this.burger_name}} has been eaten!!
           </div>
         {{/if}}
       {{/each}}
@@ -35,7 +35,7 @@
     	<textarea id="userBurger" type="text" name="burger_name" maxlength="30" autofocus></textarea>
       <br>
     	<button class="btn btn-default" id="submit-button" type="submit">Submit</button>
-      <p id = "submit-text">Enter a burger that you want to devour, and press the "Submit" button!</p>
+      <p id = "submit-text">Add a burger to the menu!</p>
     </form>
   </div>
 </div>
